@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import FormData from "./components/FormData";
+import FormInputs from "./components/FormInputs";
+
+import { useState } from "react";
+import { FieldValues } from "react-hook-form";
 
 function App() {
-	const [count, setCount] = useState(0)
+
+	const [form_data, setFormData] = useState([
+        {id: 1, description: "Milk", amount: 5, category: "Groceries"},
+        {id: 2, description: "Eggs", amount: 10, category: "Utilities"},
+        {id: 3, description: "Milk", amount: 5, category: "Entertainment"}
+    ]);
+
+	const handleSubmit = (data: FieldValues) =>{
+		const {description, amount, category} = data;
+		const new_form_data = 
+		{ 
+			id: form_data.length + 1,
+			description: description, 
+			amount: amount, 
+			category: category
+		};
+
+		/* Update the state by combining the current array with the new object. */
+		setFormData([...form_data, new_form_data]);
+	}
+	
+	const handleDelete = (expense_id: number) =>{
+		setFormData(form_data.filter(data => data.id !== expense_id))
+	}
 
 	return (
-		<>
-		<div>
-			<a href="https://vitejs.dev" target="_blank">
-			<img src={viteLogo} className="logo" alt="Vite logo" />
-			</a>
-			<a href="https://react.dev" target="_blank">
-			<img src={reactLogo} className="logo react" alt="React logo" />
-			</a>
-		</div>
-		<h1>Vite + React</h1>
-		<div className="card">
-			<button onClick={() => setCount((count) => count + 1)}>
-			count is {count}
-			</button>
-			<p>
-			Edit <code>src/App.tsx</code> and save to test HMR
-			</p>
-		</div>
-		<p className="read-the-docs">
-			Click on the Vite and React logos to learn more
-		</p>
-		</>
-	)
+			<div className="m-5">
+				<FormInputs onSubmitForm={handleSubmit}/>
+				<FormData form_data={form_data} onDelete={handleDelete}/>
+			</div>
+		)
 	}
 
 export default App
