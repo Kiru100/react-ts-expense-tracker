@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Form } from "react-bootstrap";
+import FormData from "./components/FormData";
+import FormInputs from "./components/FormInputs";
+import { useState } from "react";
+
+
 
 function App() {
-	const [count, setCount] = useState(0)
+
+	const [form_data, setFormData] = useState([
+        {id: 1, description: "Milk", amount: 5, category: "Groceries"},
+        {id: 2, description: "Eggs", amount: 10, category: "Groceries"},
+        {id: 3, description: "Milk", amount: 5, category: "Groceries"}
+    ])
 
 	return (
-		<>
-		<div>
-			<a href="https://vitejs.dev" target="_blank">
-			<img src={viteLogo} className="logo" alt="Vite logo" />
-			</a>
-			<a href="https://react.dev" target="_blank">
-			<img src={reactLogo} className="logo react" alt="React logo" />
-			</a>
+		<div className='m-5'>
+			<FormInputs></FormInputs>
+			<Form className="mt-5">
+				<Form.Group
+						className="mb-3"
+						controlId="expense_amount" 
+					>
+						<Form.Label>Category</Form.Label>
+						<Form.Select aria-label="Default select example">
+							<option value="groceries">All categories</option>
+							<option value="groceries">Groceries</option>
+							<option value="utilities">Utilities</option>
+							<option value="entertainment">Entertainment</option>
+						</Form.Select>
+					</Form.Group>
+			</Form>
+			<FormData form_data={form_data}></FormData>
 		</div>
-		<h1>Vite + React</h1>
-		<div className="card">
-			<button onClick={() => setCount((count) => count + 1)}>
-			count is {count}
-			</button>
-			<p>
-			Edit <code>src/App.tsx</code> and save to test HMR
-			</p>
-		</div>
-		<p className="read-the-docs">
-			Click on the Vite and React logos to learn more
-		</p>
-		</>
 	)
 	}
 
