@@ -13,17 +13,22 @@ interface FormDataItem {
 
 export default function FormData({form_data}: Props){
 
-    const [selected_category, setSelectedCategory] = useState("All")
+    const [selected_category, setSelectedCategory] = useState("All");
+
+    const onChange = (event: any) =>{
+        setSelectedCategory(event.target.value);
+    }
+
 
     return (
         <>
-            <Form className="mt-5">
+            <Form className="mt-5" >
 				<Form.Group
 						className="mb-3"
 						controlId="expense_amount" 
 					>
 						<Form.Label>Category</Form.Label>
-						<Form.Select aria-label="Default select example">
+						<Form.Select onChange={onChange} >
 							<option value="All">All categories</option>
 							<option value="Groceries">Groceries</option>
 							<option value="Utilities">Utilities</option>
@@ -43,7 +48,7 @@ export default function FormData({form_data}: Props){
                 <tbody>
                     {
                         form_data
-                        .filter(data => data.category === "Groceries" || selected_category)
+                        .filter(data => data.category === selected_category || selected_category === "All")
                         .map((data, index)=>
                         (
                             <tr key={`${index}_${data.description}`}>
