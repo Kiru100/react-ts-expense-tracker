@@ -44,6 +44,7 @@ export default function FormInputs({onSubmitForm} : FormIntputProps) {
                     )
                 }
             </Form.Group>
+
             <Form.Group 
                 className="mb-3" 
                 controlId="expense_amount"
