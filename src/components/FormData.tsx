@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 interface Props{
@@ -12,6 +13,8 @@ interface FormDataItem {
 
 export default function FormData({form_data}: Props){
 
+    const [selected_category, setSelectedCategory] = useState("All")
+
     return (
         <>
             <Form className="mt-5">
@@ -21,10 +24,10 @@ export default function FormData({form_data}: Props){
 					>
 						<Form.Label>Category</Form.Label>
 						<Form.Select aria-label="Default select example">
-							<option value="all">All categories</option>
-							<option value="groceries">Groceries</option>
-							<option value="utilities">Utilities</option>
-							<option value="entertainment">Entertainment</option>
+							<option value="All">All categories</option>
+							<option value="Groceries">Groceries</option>
+							<option value="Utilities">Utilities</option>
+							<option value="Entertainment">Entertainment</option>
 						</Form.Select>
 					</Form.Group>
 			</Form>
@@ -39,7 +42,9 @@ export default function FormData({form_data}: Props){
                 </thead>
                 <tbody>
                     {
-                        form_data.map((data, index)=>
+                        form_data
+                        .filter(data => data.category === "Groceries" || selected_category)
+                        .map((data, index)=>
                         (
                             <tr key={`${index}_${data.description}`}>
                                 <td>{data.description}</td>
