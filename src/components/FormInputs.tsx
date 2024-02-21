@@ -3,15 +3,19 @@ import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+interface FormIntputProps {
+    onSubmitForm: (item: FieldValues) => void
+} 
+
 const form_schema = z.object({
-    description: z.string().min(3),
-    amount: z.number().min(1),
+    description: z.string().min(3, {message: "Name must be at least 3 characters."}),
+    amount: z.number({invalid_type_error: "Age field is required."}).min(1),
     category: z.string().min(1)
 })
 
 type FormData =  z.infer<typeof form_schema>;
 
-export default function FormInputs() {
+export default function FormInputs({onSubmitForm} : FormIntputProps) {
 
     const {
         register, 
@@ -19,7 +23,9 @@ export default function FormInputs() {
         formState:{errors, isValid}
     } = useForm<FormData>({resolver: zodResolver(form_schema)});
 
-    const onSubmit = (data: FieldValues) => console.log(data);
+    const onSubmit = (data: FieldValues) => {
+        onSubmitForm(data)
+    };
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -58,13 +64,13 @@ export default function FormInputs() {
             </Form.Group>
             <Form.Group
                 className="mb-3"
-                controlId="expense_amount" 
+                controlId="expense_category" 
             >
                 <Form.Label>Category</Form.Label>
                 <Form.Select aria-label="Default select example" {...register("category")}>
-                    <option value="groceries">Groceries</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="entertainment">Entertainment</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
                 </Form.Select>
                 <Form.Text className="text-danger">
                 {
