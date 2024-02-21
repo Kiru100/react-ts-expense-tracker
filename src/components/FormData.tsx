@@ -1,3 +1,4 @@
+import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 interface Props{
     form_data: FormDataItem[]
@@ -12,6 +13,21 @@ interface FormDataItem {
 export default function FormData({form_data}: Props){
 
     return (
+        <>
+            <Form className="mt-5">
+				<Form.Group
+						className="mb-3"
+						controlId="expense_amount" 
+					>
+						<Form.Label>Category</Form.Label>
+						<Form.Select aria-label="Default select example">
+							<option value="all">All categories</option>
+							<option value="groceries">Groceries</option>
+							<option value="utilities">Utilities</option>
+							<option value="entertainment">Entertainment</option>
+						</Form.Select>
+					</Form.Group>
+			</Form>
             <Table  bordered hover>
                 <thead>
                     <tr>
@@ -35,5 +51,6 @@ export default function FormData({form_data}: Props){
                     }
                 </tbody>
             </Table>
+        </>
     )
 }
