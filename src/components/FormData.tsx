@@ -2,23 +2,23 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 interface Props{
-    form_data: FormDataItem[]
+    form_data: FormDataItem[],
+    onDelete: (expense_id: number) => void
 }
 
 interface FormDataItem {
+    id: number,
     description: string;
     amount: number;
     category: string;
 }
 
-export default function FormData({form_data}: Props){
-
+export default function FormData({form_data, onDelete}: Props){
     const [selected_category, setSelectedCategory] = useState("All");
 
     const onChange = (event: any) =>{
         setSelectedCategory(event.target.value);
     }
-
 
     return (
         <>
@@ -53,9 +53,16 @@ export default function FormData({form_data}: Props){
                         (
                             <tr key={`${index}_${data.description}`}>
                                 <td>{data.description}</td>
-                                <td>{data.amount}</td>
+                                <td>${data.amount}</td>
                                 <td>{data.category}</td>
-                                <td><button type="button" className="btn btn-outline-danger">Delete</button></td>
+                                <td>
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-outline-danger"
+                                        onClick={()=>onDelete(data.id)}
+                                    >Delete
+                                    </button>
+                                </td>
                             </tr>                
                         ))
                     }

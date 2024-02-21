@@ -1,10 +1,7 @@
-import { Form } from "react-bootstrap";
 import FormData from "./components/FormData";
 import FormInputs from "./components/FormInputs";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-
-
 
 function App() {
 
@@ -26,13 +23,16 @@ function App() {
 
 		/* Update the state by combining the current array with the new object. */
 		setFormData([...form_data, new_form_data]);
-	}	
+	}
+	
+	const handleDelete = (expense_id: number) =>{
+		setFormData(form_data.filter(data => data.id !== expense_id))
+	}
 
 	return (
-		<div className='m-5'>
-			{JSON.stringify(form_data)}
+		<div className="m-5">
 			<FormInputs onSubmitForm={handleSubmit}/>
-			<FormData form_data={form_data} />
+			<FormData form_data={form_data} onDelete={handleDelete}/>
 		</div>
 	)
 	}
