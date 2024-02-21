@@ -1,5 +1,6 @@
 import FormData from "./components/FormData";
 import FormInputs from "./components/FormInputs";
+
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 
@@ -30,11 +31,11 @@ function App() {
 	}
 
 	return (
-		<div className="m-5">
-			<FormInputs onSubmitForm={handleSubmit}/>
-			<FormData form_data={form_data} onDelete={handleDelete}/>
-		</div>
-	)
+			<div className="m-5">
+				<FormInputs onSubmitForm={handleSubmit}/>
+				<FormData form_data={form_data} onDelete={handleDelete}/>
+			</div>
+		)
 	}
 
 export default App
