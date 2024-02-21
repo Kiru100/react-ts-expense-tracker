@@ -10,19 +10,22 @@ function App() {
 
 	const [form_data, setFormData] = useState([
         {id: 1, description: "Milk", amount: 5, category: "Groceries"},
-        {id: 2, description: "Eggs", amount: 10, category: "Groceries"},
-        {id: 3, description: "Milk", amount: 5, category: "Groceries"}
+        {id: 2, description: "Eggs", amount: 10, category: "Utilities"},
+        {id: 3, description: "Milk", amount: 5, category: "Entertainment"}
     ]);
 
 	const handleSubmit = (data: FieldValues) =>{
-		console.log(" data ", data)
 		const {description, amount, category} = data;
+		const new_form_data = 
+		{ 
+			id: form_data.length + 1,
+			description: description, 
+			amount: amount, 
+			category: category
+		};
 
-
-		const newObject = { id: form_data.length + 1, description: description, amount: amount, category: category };
-
-    // Update the state by combining the current array with the new object
-    setFormData([...form_data, newObject]);
+		/* Update the state by combining the current array with the new object. */
+		setFormData([...form_data, new_form_data]);
 	}	
 
 	return (
