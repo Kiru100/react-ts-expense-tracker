@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap";
 import FormData from "./components/FormData";
 import FormInputs from "./components/FormInputs";
 import { useState } from "react";
+import { FieldValues } from "react-hook-form";
 
 
 
@@ -11,26 +12,24 @@ function App() {
         {id: 1, description: "Milk", amount: 5, category: "Groceries"},
         {id: 2, description: "Eggs", amount: 10, category: "Groceries"},
         {id: 3, description: "Milk", amount: 5, category: "Groceries"}
-    ])
+    ]);
+
+	const handleSubmit = (data: FieldValues) =>{
+		console.log(" data ", data)
+		const {description, amount, category} = data;
+
+
+		const newObject = { id: form_data.length + 1, description: description, amount: amount, category: category };
+
+    // Update the state by combining the current array with the new object
+    setFormData([...form_data, newObject]);
+	}	
 
 	return (
 		<div className='m-5'>
-			<FormInputs></FormInputs>
-			<Form className="mt-5">
-				<Form.Group
-						className="mb-3"
-						controlId="expense_amount" 
-					>
-						<Form.Label>Category</Form.Label>
-						<Form.Select aria-label="Default select example">
-							<option value="groceries">All categories</option>
-							<option value="groceries">Groceries</option>
-							<option value="utilities">Utilities</option>
-							<option value="entertainment">Entertainment</option>
-						</Form.Select>
-					</Form.Group>
-			</Form>
-			<FormData form_data={form_data}></FormData>
+			{JSON.stringify(form_data)}
+			<FormInputs onSubmitForm={handleSubmit}/>
+			<FormData form_data={form_data} />
 		</div>
 	)
 	}
