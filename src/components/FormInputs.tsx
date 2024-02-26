@@ -8,8 +8,8 @@ interface FormIntputProps {
 } 
 
 const form_schema = z.object({
-    description: z.string().min(3, {message: "Name must be at least 3 characters."}),
-    amount: z.number({invalid_type_error: "Age field is required."}).min(1),
+    description: z.string().min(3, {message: "Name must be at least 3 characters."}).max(50),
+    amount: z.number({invalid_type_error: "Age field is required."}).min(1).max(100_1000),
     category: z.string().min(1)
 })
 
