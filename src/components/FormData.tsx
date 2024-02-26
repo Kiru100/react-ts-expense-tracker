@@ -67,6 +67,14 @@ export default function FormData({form_data, onDelete}: Props){
                         ))
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td>${form_data.reduce((acc,expense)=>expense.amount+acc, 0).toFixed(2)}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </Table>
         </>
     )
