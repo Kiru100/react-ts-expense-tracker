@@ -20,11 +20,13 @@ export default function FormInputs({onSubmitForm} : FormIntputProps) {
     const {
         register, 
         handleSubmit, 
+        reset,
         formState:{errors, isValid}
     } = useForm<FormData>({resolver: zodResolver(form_schema)});
 
     const onSubmit = (data: FieldValues) => {
-        onSubmitForm(data)
+        onSubmitForm(data);
+        reset();
     };
 
     return (
